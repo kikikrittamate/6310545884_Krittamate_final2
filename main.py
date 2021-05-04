@@ -71,6 +71,8 @@ class Cat(Sprite):
         self.app = app
         self.direction = None
 
+
+
     def update(self):
         if self.direction == CAT_UP:
             if self.y >= CAT_MARGIN:
@@ -78,6 +80,13 @@ class Cat(Sprite):
         elif self.direction == CAT_DOWN:
             if self.y <= CANVAS_HEIGHT - CAT_MARGIN:
                 self.y += CAT_SPEED
+        elif self.direction == CAT_LEFT:
+            if self.x >= CAT_MARGIN:
+                self.x -= CAT_SPEED
+        elif self.direction == CAT_RIGHT:
+            if self.x <= CANVAS_WIDTH - CAT_MARGIN:
+                self.x += CAT_SPEED
+
 
     def check_collision(self, fruit):
         if self.distance_to(fruit) <= CAT_CATCH_DISTANCE:
@@ -94,6 +103,7 @@ class CatGame(GameApp):
         self.score = 0
         self.score_text = Text(self, 'Score: 0', 100, 40)
         self.fruits = []
+
 
     def update_score(self):
         self.score_text.set_text('Score: ' + str(self.score))
@@ -140,6 +150,10 @@ class CatGame(GameApp):
             self.cat.direction = CAT_UP
         elif event.keysym == 'Down':
             self.cat.direction = CAT_DOWN
+        elif event.keysym == 'Left':
+            self.cat.direction = CAT_LEFT
+        elif event.keysym == 'Right':
+            self.cat.direction = CAT_RIGHT
     
 
 if __name__ == "__main__":
